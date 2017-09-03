@@ -15,9 +15,10 @@ The controller annotation is just so that component scanning can scan this class
 and create a bean. it serves no purpose to spring-mvc
  */
 @Controller
+@RequestMapping( {"/","/homepage"} )
 public class HomeController {
 
-    @RequestMapping(value="/", method=GET)
+    @RequestMapping(method=GET)
     public String home() {
         return "home";
     }
