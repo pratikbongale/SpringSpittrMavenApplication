@@ -1,6 +1,7 @@
 # custom #
 ######################
 target/
+.idea/workspace.xml
 
 # Compiled source #
 ###################
