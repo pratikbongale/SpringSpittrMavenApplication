@@ -1,0 +1,24 @@
+1. Initialized Dispatcher Servlet -> created web application context
+2. Initialized Context Load Listener -> created Root configuration(root appln context)
+3. Created Home Controller -> maps the requests to "/" to home.jsp
+4. Packaged this project as a .war file
+    4.1 issues with "cannot access ServletException", added javax.servlet-api to pom
+    4.2 issues with creating mock mvc, added spring-test to pom
+    4.3 I also tried making a jar file, but jars need executables, so it looks for p.s.v.m
+    4.3 so we need a war file, which we can put to webapps folder of a web server, added packaging to pom
+    4.4 downloaded tomcat and got to ~tomcat-8.0/bin -> catalina.bat start
+    4.5 add the packaged war file to webapps folder of tomcat download
+    4.6 run localhost:8080/dir_name/
+    4.6 failed, tomcat looks for web.xml configuration file, but we did all config in java
+    4.7 we created WebConfig class as a alternative to web.xml
+    4.8 we need to tell tomcat to ignore the web.xml, added war plugin to pom
+    4.7 failed with error: The absolute uri: [http://java.sun.com/jsp/jstl/core] cannot be resolved
+    4.8 we are using jstl in our jsp file(1st line), added jstl support in pom
+
+
+5. Now we need to pull data of recent spittles from db, define a repository for data access.
+6. We defined a repository, created a controller that maps to /spittles and tested it out.
+
+
+
+
