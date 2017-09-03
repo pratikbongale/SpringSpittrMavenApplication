@@ -1,0 +1,5 @@
+spittr\config\SpittrWebAppInitializer.class
+spittr\config\RootConfig.class
+spittr\config\WebConfig.class
+spittr\web\HomeController.class
+spittr\web\HomeControllerTest.class
