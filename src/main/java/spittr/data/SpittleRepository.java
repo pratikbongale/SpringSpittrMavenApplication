@@ -13,7 +13,7 @@ public interface SpittleRepository {
     List<Spittle> recent =
                 spittleRepository.findSpittles(Long.MAX_VALUE, 20);
      */
-    public List<Spittle> findSpittles(long maxId, int count);
-
+    List<Spittle> findSpittles(long maxId, int count);
+    Spittle findOne(long spittleId);
 
 }

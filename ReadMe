@@ -18,7 +18,13 @@
 
 5. Now we need to pull data of recent spittles from db, define a repository for data access.
 6. We defined a repository, created a controller that maps to /spittles and tested it out.
-
+7. Added a way to pass query parameters to the controller to get more specific results
+8. if we want one specific spittle, we can use query parameters, but its not ideal
+    8.1 ideally, As a general rule, query parameters should not be used to identify a resource.
+                 A GET request for /spittles/12345 is better than one for /spittles/show?spittle_id=12345.
+                 The former identifies a resource to be retrieved.
+                 The latter describes an operation with a parameter—essentially RPC over HTTP.
+9.
 
 
 

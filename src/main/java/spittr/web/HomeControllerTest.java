@@ -96,4 +96,19 @@ public class HomeControllerTest {
                 .andExpect(model().attribute("spittleList",
                         hasItems(expectedSpittles.toArray())));
     }
+
+    @Test
+    public void testFindOneSpittle() throws Exception {
+        Spittle expectedSpittle = new Spittle("testSpittle", new Date());
+        SpittleRepository mockRepository = mock(SpittleRepository.class);
+        when(mockRepository.findOne(12345)).thenReturn(expectedSpittle);
+        SpittleController controller = new SpittleController(mockRepository);
+        MockMvc mockMvc = standaloneSetup(controller).build();
+
+        mockMvc.perform(get("/spittles/12345"))
+                .andExpect(view().name("spittle"))
+                .andExpect(model().attributeExists("spittle"))  // the model key is determined by the Type of object in model
+                .andExpect(model().attribute("spittle", expectedSpittle));
+
+    }
 }

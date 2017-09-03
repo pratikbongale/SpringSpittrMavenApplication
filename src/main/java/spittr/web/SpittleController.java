@@ -3,6 +3,7 @@ package spittr.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,5 +63,14 @@ public class SpittleController {
 
         return spittleRepository.findSpittles(maxId,count);
     }
+
+    // Now if we are accepting requests by path parameters, we need a variable part to our @Requestmapping
+
+    @RequestMapping(value="/{spittleId}", method = RequestMethod.GET)
+    public String getSpittle(@PathVariable("spittleId") Long spittleId, Model model) {
+        model.addAttribute(spittleRepository.findOne(spittleId));
+        return "spittle";
+    }
+
 
 }
