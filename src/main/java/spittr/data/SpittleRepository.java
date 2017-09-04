@@ -16,4 +16,5 @@ public interface SpittleRepository {
     List<Spittle> findSpittles(long maxId, int count);
     Spittle findOne(long spittleId);
 
+
 }

@@ -72,5 +72,7 @@ public class SpittleController {
         return "spittle";
     }
 
+    // for handling data submitted by forms, neither path variables nor querry parameters are helpful
+    // we need our a new controller(SpitterController) to handle a post request
 
 }

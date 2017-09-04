@@ -24,7 +24,10 @@
                  A GET request for /spittles/12345 is better than one for /spittles/show?spittle_id=12345.
                  The former identifies a resource to be retrieved.
                  The latter describes an operation with a parameter—essentially RPC over HTTP.
-9.
-
+9. form post feature added, and tested
+    9.1 test failed because we did not have a default constructor for Spitter.
+    9.2 It is used by spring when the post request send the Spitter object to postRegistrationForm()
+        to build the object from the parameters submitted in the form
+10. added validation to form parameters in Spitter using the javax.validation:validation-api
 
 
