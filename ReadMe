@@ -28,6 +28,45 @@
     9.1 test failed because we did not have a default constructor for Spitter.
     9.2 It is used by spring when the post request send the Spitter object to postRegistrationForm()
         to build the object from the parameters submitted in the form
-10. added validation to form parameters in Spitter using the javax.validation:validation-api
+10. added validation to form parameters in Spitter using the javax.validation:validation-api.
+
+===================================================================================================
+Problems with jsp:
+1. most jsp templates are littered with jsp tag libraries
+2. if we view a jsp file unrendered its a visual disaster
+3. jsp is a specification tightly coupled to servlet specification
+4. It can only be used in web views in a servlet based web application(biggest problem)
+
+Thymeleaf:
+1. can be rendered wherever html can be rendered
+2. natural templates
+3. they’re not coupled to the servlet specification
+4. when you open a thymeleaf template normally - it will make display properly
+   by making conversions th:href to href. So you can ask someone who knows only html
+   to generate these natural templates and then you can add the dynamic part anytime.
+
+Configuring thymeleaf:
+A ThymeleafViewResolver that resolves Thymeleaf template views from logical
+view names
+A SpringTemplateEngine to process the templates and render the results
+A TemplateResolver that loads Thymeleaf templates
+
+Issues Faced:
+needed proper thymeleaf dependencies
+http://www.thymeleaf.org/doc/articles/thymeleaf3migration.html
+
+Thymeleaf Documentation:
+http://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#using-and-displaying-variables
+
+Next:
+Form binding in thymeleaf
+
+==================================================================================================
+Spring Web Flow
+
+
+
+
+
 
 

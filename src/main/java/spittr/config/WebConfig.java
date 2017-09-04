@@ -20,6 +20,8 @@ Ex. RequestMappingHandlerMapping - for mapping requests to annotated controller 
 Creates RequestMappingInfo instances from type and method-level @RequestMapping annotations in @Controller classes
  */
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -28,34 +30,41 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 
 
 @Configuration
 @EnableWebMvc
 @ComponentScan("spittr.web")   // scan components from this package
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     // now we modify the default config
     // we need ViewResolvers and need to handle static resources
 
-    @Bean
-    public ViewResolver viewResolver() {
-        /*
-         it's good practice to put JSP files that just serve as views under WEB-INF,
-         to hide them from direct access (e.g. via a manually entered URL).
-         Only controllers will be able to access them then.
-         */
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/views/");
-        resolver.setSuffix(".jsp");
-
-        /*
-        Set whether to make all Spring beans in the application context accessible as request attributes
-        This will make all such beans accessible in plain ${...} expressions in a JSP 2.0 page
-         */
-        resolver.setExposeContextBeansAsAttributes(true);
-        return resolver;
-    }
+    // Commenting this block because now practicing thymeleaf
+//    @Bean
+//    public ViewResolver viewResolver() {
+//        /*
+//         it's good practice to put JSP files that just serve as views under WEB-INF,
+//         to hide them from direct access (e.g. via a manually entered URL).
+//         Only controllers will be able to access them then.
+//         */
+//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//        resolver.setPrefix("/WEB-INF/views/");
+//        resolver.setSuffix(".jsp");
+//
+//        /*
+//        Set whether to make all Spring beans in the application context accessible as request attributes
+//        This will make all such beans accessible in plain ${...} expressions in a JSP 2.0 page
+//         */
+//        resolver.setExposeContextBeansAsAttributes(true);
+//        return resolver;
+//    }
 
     /*
     now configure how should server handle static pages.
@@ -74,5 +83,46 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         the servlet container’s default servlet and not to try to handle them itself.
          */
         configurer.enable();
+    }
+
+    private ApplicationContext applicationContext;
+
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
+
+    /*
+    ThymeleafViewResolver <- SpringTemplateEngine <- SpringResourceTemplateResolver
+     */
+    @Bean
+    public ViewResolver viewResolver() {
+        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+        resolver.setTemplateEngine(templateEngine());
+        resolver.setCharacterEncoding("UTF-8");
+        return resolver;
+    }
+
+    /*
+    SpringTemplateEngine establishes an instance of SpringStandard Dialect.
+    SpringStandard Dialect. This is the class containing the implementation of Thymeleaf Standard Dialect,
+    including all th:* processors, expression objects(@,$ ..), etc. for Spring-enabled environments.
+    */
+    @Bean
+    public TemplateEngine templateEngine() {
+        SpringTemplateEngine engine = new SpringTemplateEngine();
+        engine.setEnableSpringELCompiler(true);
+        engine.setTemplateResolver(templateResolver());
+        return engine;
+    }
+
+    @Bean
+    public ITemplateResolver templateResolver() {
+        SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+        resolver.setApplicationContext(applicationContext);
+        resolver.setPrefix("/WEB_INF/templates");
+        resolver.setSuffix(".html");
+        resolver.setTemplateMode(TemplateMode.HTML);
+        return resolver;
     }
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf Home Template</title>
+    <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css">
+</head>
+
+<body>
+    <h1>Welcome to spittr</h1>
+    <a th:href="@{/spittles}">Spittles</a>
+    <a th:href="@{/spitter/register}">Register</a>
+
+    <!--
+    What makes th:href special is that its value can
+    contain Thymeleaf expressions to evaluate dynamic values. It will render a standard
+    href attribute containing a value that’s dynamically created at render time.
+    -->
+
+</body>
+</html>

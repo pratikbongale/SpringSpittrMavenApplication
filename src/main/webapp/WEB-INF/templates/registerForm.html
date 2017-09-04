@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+    <title>Spitter Registration Form</title>
+</head>
+<body>
+    <h1>Hello Spitter, Please fill in the details</h1>
+
+    <!--
+    Use th:field to refer to a particular field from backing object
+    by using th:field we set the name="firstName" and value="" <- linked to the firstName field
+
+    ${...} expressions are in fact OGNL (Object-Graph Navigation Language) expressions
+    executed on the map of variables contained in the web context.
+
+    web context:
+    WebContext ctx =
+            new WebContext(request, response, servletContext, request.getLocale());
+    ctx.setVariable("today", dateFormat.format(cal.getTime()));
+
+
+    Variable Expressions: ${...}
+    Selection Variable Expressions: *{...}
+    Message Expressions: #{...}
+    Link URL Expressions: @{...}
+    Fragment Expressions: ~{...}
+
+    When evaluating OGNL expressions on the context variables,
+    some objects are made available to expressions for higher flexibility.
+    These objects will be referenced (per OGNL standard) starting with the # symbol:
+
+    #ctx: the context object.
+    #vars: the context variables.
+    #locale: the context locale.
+    #request: (only in Web Contexts) the HttpServletRequest object.
+    #response: (only in Web Contexts) the HttpServletResponse object.
+    #session: (only in Web Contexts) the HttpSession object.
+    #servletContext: (only in Web Contexts) the ServletContext object.
+    -->
+
+
+
+    <form method="post" th:object="${spitter}">
+        <div class="errors" th:if="${#fields.hasErrors('*')}">
+            <ul>
+                <li th:each="err : ${#fields.hasErrors('*')}" th:text="${err}">
+                    Input is incorrect
+                </li>
+            </ul>
+        </div>
+
+        <label>First Name: </label>
+        <input th:field="*{firstName}" th:class="${#fields.hasErrors('firstName')?: 'error'}">
+        <br />
+
+    </form>
+
+</body>
+</html>
