@@ -53,7 +53,14 @@
         <label>First Name: </label>
         <input th:field="*{firstName}" th:class="${#fields.hasErrors('firstName')?: 'error'}">
         <br />
-
+        <label>Last Name: </label>
+        <input th:field="*{lastName}" th:class="${#fields.hasErrors('lastName')?: 'error'}">
+        <br />
+        <label>Username: </label>
+        <input th:field="*{username}" th:class="${#fields.hasErrors('lastName')?: 'error'}">
+        <br />
+        <label>Password: </label>
+        <input th:field="*{password}" th:class="${#fields.hasErrors('lastName')?: 'error'}">
     </form>
 
 </body>

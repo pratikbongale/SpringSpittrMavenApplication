@@ -25,18 +25,17 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
-
 
 @Configuration
 @EnableWebMvc
@@ -85,6 +84,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         configurer.enable();
     }
 
+    // used by templateResolver for thymeleaf templates
     private ApplicationContext applicationContext;
 
     public void setApplicationContext(ApplicationContext applicationContext) {
@@ -120,9 +120,11 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public ITemplateResolver templateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
         resolver.setApplicationContext(applicationContext);
-        resolver.setPrefix("/WEB_INF/templates");
+        resolver.setPrefix("/WEB_INF/templates/");
         resolver.setSuffix(".html");
-        resolver.setTemplateMode(TemplateMode.HTML);
+        resolver.setTemplateMode(TemplateMode.HTML);    // html5
         return resolver;
     }
+
+
 }

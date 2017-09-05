@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Single Spittle</title>
+    </head>
+    <body>
+        <h1>This is the spittle you asked</h1>
+        <span th:text="${spittle.message}">Spittle Message</span>
+        <span th:text="${spittle.time}">Spittle Creation time</span>
+    </body>
+</html>

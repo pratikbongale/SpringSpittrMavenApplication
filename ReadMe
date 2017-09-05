@@ -61,8 +61,39 @@ http://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#using-and-display
 Next:
 Form binding in thymeleaf
 
-==================================================================================================
-Spring Web Flow
+======================================================================================================
+Spring Persistence API
+1. To avoid scattering persistence logic, spring factors database access into DAO/Repositories
+2. To keep the data access technology decoupled, the service objects access db through interfaces.
+3. Spring JDBC provides a rich hierarchy of data-access exceptions, which is not associated with
+   any particular persistence solution.
+4. To use Spring's data access exception, you must use one of Spring's data access templates
+5. Data Access Templates: Spring abstracts out common functionality(connecting to DS, releasing resources)
+6. Templates manage the fixed part of the process,
+   whereas your custom data-access code is handled in callbacks.
+7. Popular persistence frameworks: JDBC, Hibernate/JPA, NoSQL
+8. To connect to any db, you first need to configure a source of data
+   Need a data source - get from jdbc driver/JNDI lookup/pool connections
+   8.1 JNDI - The web server(tomcat), or Java EE app server(Websphere/Jboss) allow you to configure
+              data sources to be retrieved from JNDI
+              Adv: data sources can be managed external to your application,
+                   they are retreived from a pool, so greater performance, parallel
+              To set up JNDI:
+              1. copy the jdbc-driver.jar file to tomcat/lib
+              2. add a resource element to tomcat/conf/context.xml
+              In this case we define key value pairs
+   8.2 Pooled Data source - You configure and request connections pool inside spring itself
+              https://www.youtube.com/watch?v=oZ61637HIdA
+   8.3 JdBC Datasource - spring provides 3 classes for this
+              DriverManagerDataSource, SimpleDriverDataSource, SingleConnectionDataSource
+   8.4 Embedded Datasource - allows you to populate your database with test data that’s reset
+              every time you restart your application or run your tests. (dev/test - good)
+
+
+mvn clean package
+cd target
+cp SpringSpittrMavenApplication-1.0.war C:\Users\Mack\Downloads\apache-tomcat-8.5.20\webapps\test2.war
+
 
 
 
