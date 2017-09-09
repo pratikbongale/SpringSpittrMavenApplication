@@ -7,9 +7,9 @@
 <body>
     <h1>Most recent spittles</h1>
     <ul>
-        <li th:each="spittle : ${spittleList}">
-            <span th:text="${spittle.message}">Spittle Message</span>
-            <span th:text="${spittle.time}">Spittle Creation time</span>
+        <li th:each="s : ${spittleList}">
+            <span th:text="${s.message}">Spittle Message</span>
+            <span th:text="${s.time}">Spittle Creation time</span>
         </li>
     </ul>
 </body>
